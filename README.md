@@ -3,11 +3,11 @@ Projeto 1 de Sistemas Operacionais (SO1). Criando um Shell que aceita alguns com
 Veja na íntegra o [contexto de implementação](./contexto.pdf) do referido programa.
 
 ## Máquina
-Notebook Acer Aspire V3
-Processador Intel Core i7-3632QM @2.2GHz x 8
-8GBs RAM
-500GB HD
-Ubuntu 18.04.3 LTS 64 bits
+- Notebook Acer Aspire V3
+- Processador Intel Core i7-3632QM @2.2GHz x 8
+- 8GBs RAM
+- 500GB HD
+- Ubuntu 18.04.3 LTS 64 bits
 
 
 ## Compilação
