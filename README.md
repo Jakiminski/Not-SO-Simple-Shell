@@ -4,8 +4,7 @@ Veja na íntegra o [contexto de implementação](./contexto.pdf) do referido pro
 
 ## Compilação
 :bowtie: 
-Foi usado o compilador de C++ *g++ (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0*. No seu terminal **Linux**, compile o programa usando o seguinte comando no diretório onde se encontra o código-fonte:
-Linux:  ```g++ main.cpp -o SimpleShell```.
+Foi usado o compilador de C++ *g++ (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0*. No seu terminal **Linux**, compile o programa usando o seguinte comando no diretório onde se encontra o código-fonte:```g++ main.cpp -o SimpleShell```.
 Uma vez compilado, rode o arquivo executável com o nome ```SimpleShell``` ou equivalente na sua máquina.
 
 ## Licença
