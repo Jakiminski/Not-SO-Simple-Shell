@@ -46,7 +46,7 @@ void lerComando(char cmd[], char* par[]){
 		strcpy(cmd, vet[0]);
 		// Identificar parametros, se houver
 		for (int j=0; j<i; j++){
-			par[j] = vet[j]; //
+			par[j] = vet[j];
 		}par[i] = NULL;
 	}
 }
@@ -56,17 +56,16 @@ int main(void){
 	char cmd [INPUT_SIZE], comando [INPUT_SIZE]; // Entrada do teclado
 	char* parametros [PAR_SIZE]; // Argumentos/Parametros
 	char* envpath[] = {DEF_PATH,NULL}; // $PATH Linux default
-	int status; // Indica erros de execução durante o programa
+	int end = FALSE; // Flag para encerrar programa
 
 
 	while (TRUE){
+
 		mostraPrompt(); // Mostra o prompt na tela
 		lerComando(comando, parametros); // Ler input do terminal
-
 		/*
-		cout << "Comando=\t" << comando << endl;
 		for (int i=0;i<PAR_SIZE;i++){
-			if (parametros[i]!=NULL) cout << "p[" << i << "]: " << parametros[i] << endl;
+			if (parametros[i]!=NULL) cout << "p[" << i << "]: '" << parametros[i] << "'." << endl;
 			else break;
 		}
 		*/
@@ -76,24 +75,25 @@ int main(void){
 			wait(NULL); // Espera pela execução do pocesso-filho
 
 		}else{
-		    	// Processo-filho
-			strcpy(cmd, "/bin");
-			strcat(cmd, comando);
-	    		execve(comando,parametros,NULL); //Executar comando
-		}
+		    	// Processo-filho			
+			strcpy(cmd, "/bin/");
+			strcat(cmd, comando);	    		
+			execve(comando,parametros,envpath); //Executar comando;execve(comando,parametros,N);
+			cout << cmd << endl;	 
 			
-		// Comandos Externos
-		if (strcmp(comando, "help") == 0){
-			//HELP -> exibe todos os comandos
-			cout << HELP_MSG;
-		}else if (strcmp(comando, "clear") == 0){
+		}// if-else
+		if (strcmp(comando, "help") == 0 || strcmp(comando, "HELP") == 0){
+				//HELP -> exibe todos os comandos
+				cout << HELP_MSG;
+		}
+		if (strcmp(comando, "clear") == 0 || strcmp(comando, "CLEAR") == 0){
 			//CLEAR -> limpa a tela
 			system("clear");
-		}else if (strcmp(comando, "exit") == 0){
-			//EXIT -> quebra loop
-			status = EXIT_SUCCESS; // Finalizar sem erros
+		}
+		if (strcmp(comando, "exit") == 0 || strcmp(comando, "EXIT") == 0){
+			//EXIT -> Encerra o Shell
 			break;
 		}
-    	}
-	return status; // Finaliza o programa
-}
+    	}// end while()
+	return EXIT_SUCCESS;
+}// end main()
