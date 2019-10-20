@@ -56,8 +56,6 @@ int main(void){
 	char cmd [INPUT_SIZE], comando [INPUT_SIZE]; // Entrada do teclado
 	char* parametros [PAR_SIZE]; // Argumentos/Parametros
 	char* envpath[] = {DEF_PATH,NULL}; // $PATH Linux default
-	int end = FALSE; // Flag para encerrar programa
-
 
 	while (TRUE){
 
