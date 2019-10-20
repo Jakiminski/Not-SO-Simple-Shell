@@ -33,7 +33,7 @@ Uma vez compilado, rode o arquivo executável com o nome ```SimpleShell``` ou eq
 * [CPlusPlus.com](http://www.cplusplus.com/)
 
 #### Livros
-* Sistemas Operacionais Modernos - Tanenbaum - 4a Edição.
+* Sistemas Operacionais Modernos - Tanenbaum - Cap. 1, 4ª Edição.
 
 #### Vídeos
 * [Linux/Mac Terminal Tutorial: The Grep Command - Search Files and Directories for Patterns of Text](https://www.youtube.com/watch?v=VGgTmxXp7xQ)
