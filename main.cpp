@@ -78,7 +78,7 @@ int main(void){
 		    	// Processo-filho			
 			strcpy(cmd, "/bin/");
 			strcat(cmd, comando);	    		
-			execve(comando,parametros,envpath); //Executar comando;execve(comando,parametros,N);
+			execve(comando,parametros,envpath); //Executar comando
 			cout << cmd << endl;	 
 			
 		}// if-else
