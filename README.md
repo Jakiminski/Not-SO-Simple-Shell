@@ -19,9 +19,25 @@ Uma vez compilado, rode o arquivo executável com o nome ```SimpleShell``` ou eq
 [GNU General Public License v3.0](/LICENSE)
 
 ## Issues
-- O comando ```exit``` encerra processos normalmente, porém não encerrará o programa necessariamente. Durante os testes de execução do programa, foi relativamente incomum. Porém foram descobertas 2 causas para o problema: A primeira é o buffer de entrada não omitir espaços, tabs ou caracteres ocultos. A outra causa ocorre quando o programa estiver executando um processo-filho, pois ```exit``` encerrará apenas ele, mas não o processo-pai do processo encerrado. Ainda assim, persistir escrevendo o comando ```exit``` algumas poucas vezes será suficiente para matar todos os processos e encerrar o programa.
-- Os comandos ```pwd``` e ```cd``` não foram implementados.
-- O pipeline também não foi implementado.
+- ```grep```,```more``` e ```ls``` nem sempre estão executando corretamente, não aceitando formatação ou argumentos com aspas; e a execução acompanhada do arg "--help" nesses comandos pode ocasionar estranheza. Não foi possível identificar causa(s), mas o path e os argumentos passados para execve() podem se modificar durante o programa, sem motivo aparente.
+- O pipeline não foi implementado.
 
 ## GitHub
 :octocat: [Not-SO-Simple-Shell](https://github.com/Jakiminski/Not-SO-Simple-Shell/)
+
+## Sources
+
+#### Sites
+* [OPENGROUP.org - C Lib <unistd.h>](https://pubs.opengroup.org/onlinepubs/7908799/xsh/unistd.h.html)
+* [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.3.0/com.ibm.zos.v2r3.bpxbd00/rtgtc.htm)
+* [CPlusPlus.com](http://www.cplusplus.com/)
+
+#### Livros
+* Sistemas Operacionais Modernos - Tanenbaum - 4a Edição.
+
+#### Vídeos
+* [Linux/Mac Terminal Tutorial: The Grep Command - Search Files and Directories for Patterns of Text](https://www.youtube.com/watch?v=VGgTmxXp7xQ)
+* [Writing a Simple Shell](https://www.youtube.com/watch?v=z4LEuxMGGs8)
+* [C Tutorial | Write your own Shell](https://www.youtube.com/watch?v=QUCSyDFPbOI)
+* [Grep Command - Practical Examples | Linux](https://www.youtube.com/watch?v=J6RWn7XJ23U)
+* [C Programming in Linux Tutorial #026 - fork() Function](https://www.youtube.com/watch?v=tS-9zg3qfMY)

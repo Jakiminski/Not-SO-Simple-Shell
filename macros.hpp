@@ -21,7 +21,7 @@
 	#undef STRTK_DLM
 	#endif
 	#ifndef STRTK_DLM
-	#define STRTK_DLM (char*) "\t\n \0"  
+	#define STRTK_DLM (char*) "\t\n "  
 	#endif
 
 

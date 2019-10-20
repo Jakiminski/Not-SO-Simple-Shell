@@ -1,9 +1,10 @@
 #include "header.hpp"
 using namespace std;
 
+
 //
 ///////// Funções Recorrentes
-//
+
 void mostraPrompt (void){
 	setlocale(LC_ALL,"Portuguese");
 	static int flag = TRUE;
@@ -18,7 +19,7 @@ void mostraPrompt (void){
 
 }
 
-void lerComando (char cmd[], char* par[]){
+void analisarComando (char cmd[], char* par[]){
 	// "Retorna" comando + parametros, modificando os ponteiros
 	char* entrada = new char [INPUT_SIZE];
 	char* *vet = new char* [100];
@@ -48,79 +49,99 @@ void lerComando (char cmd[], char* par[]){
 		strcpy(cmd, *vet);
 		// Identificar parametros, se houver
 		for (int j=0; j<i; j++){
-			par[j] = vet[j];
-		}par[i] = NULL;
+			par[j] = vet[j]; // Adiciona parametros da entrada
+		}
+		par[i-1] = NULL;// Apaga parametros não utilizados
+		for (int j=i;j<PAR_SIZE;j++){
+			par[j] = NULL;	
+		}
 	}
-}
-/**/
-void execComando (char* par[],char* const* path){
-	int status;
 
-	if(strcmp(par[0],"ls")==0){
+	delete[] entrada;
+	delete[] *vet;
+}
+
+void execComando (char* args[],char* const* path){
+	int status = 0; // Indica erros de execução no comando	
+
+	if (strcmp(args[0], "ls")==0){
 		//LS Path
-		status = execve("/bin/ls",par,path);
+		status = execve("/bin/ls", args, path);
 		assert(!status);
 	}
-	if(strcmp(par[0],"more")==0){
+	if (strcmp(args[0], "more")==0){
 		//MORE Path
-		status = execve("/bin/more",par,path);
+		status = execve("/bin/more", args, path);
 		assert(!status);		
 	}
-	if(strcmp(par[0],"grep")==0){
+	if (strcmp(args[0], "grep")==0){
 		//GREP Path
-		status = execve("/bin/grep",par,path);
+		status = execve("/bin/grep", args, path);
 		assert(!status);	
 	}
 
-	if(strcmp(par[0],"pwd")==0){
+	if (strcmp(args[0],"pwd")==0){
 		//PWD Function
-		cout << "PWD" << endl;	
-	}else if(strcmp(par[0],"cd")==0){
+		pwd(path);	
+	}else if (strcmp(args[0], "cd")==0){
 		//CD Function
-		cout << "CD" << endl;
+		cd(path);
 	}
+	exit(status); // termina o processo filho
 	
 }
-/**/
+
 
 //
 ///////// Implementação dos Comandos
-//
 
 void cd (char*path){
-	
+	char* oldPath = new char [INPUT_SIZE];
+	strcpy(oldPath,path);
+	char* newPath = new char [INPUT_SIZE];
+	if (*oldPath == '/'){
+		chdir(oldPath); // Change Dir - Muda o diretório atual do terminal
+	}else{
+		newPath = getcwd(newPath, INPUT_SIZE); // Determina novo diretório
+		newPath = strcat(strcat(newPath," /"),path); // add '/' ao começo do diretório, caso não tenha	
+		chdir(newPath); // Change Dir - Muda o diretório atual do terminal	
+	}
+	delete[] oldPath;
+	delete[] newPath;
 }
-void pwd (char*path){
 
+void pwd (char*path){
+	char* oldPath = new char [INPUT_SIZE];
+	strcpy(oldPath,path);
+	getcwd(oldPAth, INPUT_SIZE);
+	delete[] oldPath;
 }
+
 
 //
 ///////// Main()
-//
 
 int main (void){
 	setlocale(LC_ALL,"Portuguese");
 	char  comando [INPUT_SIZE]; // Entrada do teclado
 	char* parametros [PAR_SIZE]; // Argumentos/Parametros
-	char* envp[] = {DEF_PATH,0}; // Linux Environment Path
+	char* envp[] = {DEF_PATH, 0}; // Linux Environment Path
 	
 	while (TRUE){
 
 		mostraPrompt(); // Mostra o prompt na tela
-		lerComando(comando, parametros); // Ler input do terminal
+		analisarComando(comando, parametros); // Ler input do terminal/ parse(args)
 
-		if (fork()!=0){ // Fork off child proccess
+		if (fork()!=0){ // Clonar processo-filho
 		    	// Processo-pai
-			wait(NULL); // Espera pela execução do pocesso-filho
+			wait(NULL); // Espera pela execução do processo-filho
 
 		}else{
 		    	// Processo-filho			
 	    							
 			// checar Pipe
 			// executar linha de comando
-			
-			execComando(parametros,envp);
-						 
+			execComando(parametros+1,envp); // Executa o comando, dados os parametros e path
 				
 		}
 
@@ -139,4 +160,4 @@ int main (void){
 
     	}
 	return EXIT_SUCCESS;
-}// end main()
+}
