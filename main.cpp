@@ -18,8 +18,8 @@ void mostraPrompt(void){
 void lerComando(char cmd[], char* par[]){
 	// "Retorna" comando + parametros, modificando os ponteiros
 
-	char entrada [INPUT_SIZE];
-	char* vet[100];
+	char* entrada = new char [INPUT_SIZE];
+	char* *vet = new char* [100];
 	char* str; // var auxiliar
 
 	// Ler 1 linha
@@ -43,11 +43,29 @@ void lerComando(char cmd[], char* par[]){
 	
 	
 		// Identificar o comando (1a palavra)
-		strcpy(cmd, vet[0]);
+		strcpy(cmd, *vet);
 		// Identificar parametros, se houver
 		for (int j=0; j<i; j++){
 			par[j] = vet[j];
 		}par[i] = NULL;
+	}
+}
+
+void execComando(char* par[]){
+	if(strcmp(par[0],"pwd")==0){
+		/*PWD Function*/	
+	}
+	if(strcmp(par[0],"cd")==0){
+		/*CD Function*/
+	}
+	if(strcmp(par[0],"ls")==0){
+		/*LS Path*/
+	}
+	if(strcmp(par[0],"more")==0){
+		/*MORE Path*/
+	}
+	if(strcmp(par[0],"grep")==0){
+		/*GREP Path*/	
 	}
 }
 
@@ -77,18 +95,18 @@ int main(void){
 			strcpy(cmd, "/bin/");
 			strcat(cmd, comando);	    		
 			execve(comando,parametros,envpath); //Executar comando
-			cout << cmd << endl;	 
+			//cout << cmd << endl;	 
 			
 		}// if-else
-		if (strcmp(comando, "help") == 0 || strcmp(comando, "HELP") == 0){
+		if (strcmp(comando, "help") == 0){
 				//HELP -> exibe todos os comandos
 				cout << HELP_MSG;
 		}
-		if (strcmp(comando, "clear") == 0 || strcmp(comando, "CLEAR") == 0){
+		if (strcmp(comando, "clear") == 0){
 			//CLEAR -> limpa a tela
 			system("clear");
 		}
-		if (strcmp(comando, "exit") == 0 || strcmp(comando, "EXIT") == 0){
+		if (strcmp(comando, "exit") == 0){
 			//EXIT -> Encerra o Shell
 			break;
 		}

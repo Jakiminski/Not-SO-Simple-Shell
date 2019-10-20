@@ -21,7 +21,7 @@
 	#undef STRTK_DLM
 	#endif
 	#ifndef STRTK_DLM
-	#define STRTK_DLM (char*) "\t\n "  
+	#define STRTK_DLM (char*) "\t\n \0"  
 	#endif
 
 
@@ -31,7 +31,7 @@
 	#undef INITIAL_MSG
 	#endif
 	#ifndef INITIAL_MSG
-	#define INITIAL_MSG (char*) "Bem-vindo ao Simple Shell!\nEscreva \"help\" para comandos disponíveis.\n"  
+	#define INITIAL_MSG (char*) "\nBem-vindo ao Simple Shell!\nEscreva \"help\" para comandos disponíveis.\n------------------------------------------------------------------------------------\n"  
 	#endif
 	
 	// Mensagem Comandos Disponiveis
@@ -39,7 +39,7 @@
 	#undef HELP_MSG
 	#endif
 	#ifndef HELP_MSG
-	#define HELP_MSG (char*) "'pwd'\n'cd' <path>\n'ls'\n'more'<file>'grep' <string>\n'help'\n'clear'\n'exit'\n\n"  
+	#define HELP_MSG (char*) "\nComandos:\n------------------------------------------------------------------------------------\n'pwd'\n'cd' <path>\n'ls'\n'more'<file>\n'grep' <string>\n'help'\n'clear'\n'exit'\n------------------------------------------------------------------------------------\n\n"  
 	#endif
 
 	// PATH padrão do Linux
@@ -55,9 +55,9 @@
 	#undef PRMPT
 	#endif
 	#ifndef PRMPT
-	#define PRMPT (char*) ">\t" 
+	#define PRMPT (char*) "\n> " 
 	#endif
-	// Alternativas: ">\t"; "#\t" ou "$\t"
+	// Default: "> "; Alternativas: "# " ou "$"
 
 	// Size
 	#ifdef INPUT_SIZE
