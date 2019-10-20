@@ -20,7 +20,6 @@ void mostraPrompt (void){
 
 void lerComando (char cmd[], char* par[]){
 	// "Retorna" comando + parametros, modificando os ponteiros
-
 	char* entrada = new char [INPUT_SIZE];
 	char* *vet = new char* [100];
 	char* str; // var auxiliar
