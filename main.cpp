@@ -112,15 +112,11 @@ int main (void){
 
 		if (fork()!=0){ // Fork off child proccess
 		    	// Processo-pai
-			cout << "FORK\n";
 			wait(NULL); // Espera pela execução do pocesso-filho
 
 		}else{
-		    	// Processo-filho
-			cout << "CHILD\n";			
-	    			
-				
-			
+		    	// Processo-filho			
+	    							
 			// checar Pipe
 			// executar linha de comando
 			
