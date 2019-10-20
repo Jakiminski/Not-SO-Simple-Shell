@@ -54,25 +54,23 @@ void lerComando (char cmd[], char* par[]){
 	}
 }
 /**/
-void execComando (char* par[]){
-	
+void execComando (char* par[],char* const* path){
+	int status;
+
 	if(strcmp(par[0],"ls")==0){
 		//LS Path
-		cout << "LS" << endl;
-		execvp("/bin/ls",(char* const*)"ls");
-		cout << "LS" << endl;
+		status = execve("/bin/ls",par,path);
+		assert(!status);
 	}
 	if(strcmp(par[0],"more")==0){
 		//MORE Path
-		cout << "MORE" << endl;
-		execvp("/bin/more",(char* const*)"more");
-		cout << "MORE" << endl;
+		status = execve("/bin/more",par,path);
+		assert(!status);		
 	}
 	if(strcmp(par[0],"grep")==0){
 		//GREP Path
-		cout << "GREP" << endl;	
-		execvp("/bin/grep",(char* const*)"grep");	
-		cout << "GREP" << endl;
+		status = execve("/bin/grep",par,path);
+		assert(!status);	
 	}
 
 	if(strcmp(par[0],"pwd")==0){
@@ -82,7 +80,6 @@ void execComando (char* par[]){
 		//CD Function
 		cout << "CD" << endl;
 	}
-	
 	
 }
 /**/
@@ -106,6 +103,7 @@ int main (void){
 	setlocale(LC_ALL,"Portuguese");
 	char  comando [INPUT_SIZE]; // Entrada do teclado
 	char* parametros [PAR_SIZE]; // Argumentos/Parametros
+	char* envp[] = {DEF_PATH,0}; // Linux Environment Path
 	
 	while (TRUE){
 
@@ -126,7 +124,7 @@ int main (void){
 			// checar Pipe
 			// executar linha de comando
 			
-			execComando(parametros);
+			execComando(parametros,envp);
 						 
 				
 		}

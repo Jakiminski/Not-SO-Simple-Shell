@@ -6,6 +6,7 @@
     	#include <cstdio>
     	#include <cstring>
 	#include <clocale>
+	#include <cassert>
 	#include <unistd.h>
 	#include <sys/types.h>
 	#include <sys/wait.h>	
