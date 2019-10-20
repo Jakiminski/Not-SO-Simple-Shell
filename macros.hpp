@@ -47,7 +47,7 @@
 	#undef DEF_PATH
 	#endif
 	#ifndef DEF_PATH
-	#define DEF_PATH (char*) "PATH=/bin"  
+	#define DEF_PATH (char*) "/bin/"  
 	#endif
 
 	// Show prompt

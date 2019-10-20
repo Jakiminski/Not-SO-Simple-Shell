@@ -1,7 +1,10 @@
 #include "header.hpp"
 using namespace std;
 
-void mostraPrompt(void){
+//
+///////// Funções Recorrentes
+//
+void mostraPrompt (void){
 	setlocale(LC_ALL,"Portuguese");
 	static int flag = TRUE;
 	// limpa-tela no terminal e mostra cabeçalho
@@ -15,7 +18,7 @@ void mostraPrompt(void){
 
 }
 
-void lerComando(char cmd[], char* par[]){
+void lerComando (char cmd[], char* par[]){
 	// "Retorna" comando + parametros, modificando os ponteiros
 
 	char* entrada = new char [INPUT_SIZE];
@@ -50,57 +53,87 @@ void lerComando(char cmd[], char* par[]){
 		}par[i] = NULL;
 	}
 }
-
-void execComando(char* par[]){
-	if(strcmp(par[0],"pwd")==0){
-		/*PWD Function*/	
-	}
-	if(strcmp(par[0],"cd")==0){
-		/*CD Function*/
-	}
+/**/
+void execComando (char* par[]){
+	
 	if(strcmp(par[0],"ls")==0){
-		/*LS Path*/
+		//LS Path
+		cout << "LS" << endl;
+		execvp("/bin/ls",(char* const*)"ls");
+		cout << "LS" << endl;
 	}
 	if(strcmp(par[0],"more")==0){
-		/*MORE Path*/
+		//MORE Path
+		cout << "MORE" << endl;
+		execvp("/bin/more",(char* const*)"more");
+		cout << "MORE" << endl;
 	}
 	if(strcmp(par[0],"grep")==0){
-		/*GREP Path*/	
+		//GREP Path
+		cout << "GREP" << endl;	
+		execvp("/bin/grep",(char* const*)"grep");	
+		cout << "GREP" << endl;
 	}
+
+	if(strcmp(par[0],"pwd")==0){
+		//PWD Function
+		cout << "PWD" << endl;	
+	}else if(strcmp(par[0],"cd")==0){
+		//CD Function
+		cout << "CD" << endl;
+	}
+	
+	
+}
+/**/
+
+//
+///////// Implementação dos Comandos
+//
+
+void cd (char*path){
+	
+}
+void pwd (char*path){
+
 }
 
-int main(void){
-	setlocale(LC_ALL,"Portuguese");
-	char cmd [INPUT_SIZE], comando [INPUT_SIZE]; // Entrada do teclado
-	char* parametros [PAR_SIZE]; // Argumentos/Parametros
-	char* envpath[] = {DEF_PATH,NULL}; // $PATH Linux default
+//
+///////// Main()
+//
 
+int main (void){
+	setlocale(LC_ALL,"Portuguese");
+	char  comando [INPUT_SIZE]; // Entrada do teclado
+	char* parametros [PAR_SIZE]; // Argumentos/Parametros
+	
 	while (TRUE){
 
 		mostraPrompt(); // Mostra o prompt na tela
 		lerComando(comando, parametros); // Ler input do terminal
-		/*
-		for (int i=0;i<PAR_SIZE;i++){
-			if (parametros[i]!=NULL) cout << "p[" << i << "]: '" << parametros[i] << "'." << endl;
-			else break;
-		}
-		*/
 
 		if (fork()!=0){ // Fork off child proccess
 		    	// Processo-pai
+			cout << "FORK\n";
 			wait(NULL); // Espera pela execução do pocesso-filho
 
 		}else{
-		    	// Processo-filho			
-			strcpy(cmd, "/bin/");
-			strcat(cmd, comando);	    		
-			execve(comando,parametros,envpath); //Executar comando
-			//cout << cmd << endl;	 
+		    	// Processo-filho
+			cout << "CHILD\n";			
+	    			
+				
 			
-		}// if-else
+			// checar Pipe
+			// executar linha de comando
+			
+			execComando(parametros);
+						 
+				
+		}
+
 		if (strcmp(comando, "help") == 0){
-				//HELP -> exibe todos os comandos
-				cout << HELP_MSG;
+			//HELP -> exibe todos os comandos
+			cout << HELP_MSG;
 		}
 		if (strcmp(comando, "clear") == 0){
 			//CLEAR -> limpa a tela
@@ -110,6 +143,7 @@ int main(void){
 			//EXIT -> Encerra o Shell
 			break;
 		}
-    	}// end while()
+
+    	}
 	return EXIT_SUCCESS;
 }// end main()
